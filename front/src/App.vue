@@ -4,7 +4,9 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
-            Módulo Acadêmico
+            <router-link to="/" class="text-decoration-none">
+              Módulo Acadêmico
+            </router-link>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -18,14 +20,18 @@
             link
         >
           <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/students" class="text-decoration-none">
+                {{ item.title }}
+              </router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-main>
-
+      <router-view :key="$route.path"/>
     </v-main>
   </v-app>
 </template>
@@ -35,8 +41,7 @@
 export default {
   name: 'App',
 
-  components: {
-  },
+  components: {},
 
   data: () => ({
     items: [
