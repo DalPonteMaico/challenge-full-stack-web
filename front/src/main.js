@@ -11,8 +11,9 @@ import HomePage from "@/views/HomePage";
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/', name: 'Home', component: HomePage },
-  { path: '/students', name: "Alunos", component: ListStudentsPage },
+  {path: '/', name: 'Home', component: HomePage},
+  {path: '/students', name: "Alunos", component: ListStudentsPage},
+  {path: '/students/new', name: "Cadastrar Alunos", component: CreateStudentPage},
 ];
 Vue.use(VueRouter);
 

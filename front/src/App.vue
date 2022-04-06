@@ -14,18 +14,14 @@
       <v-divider></v-divider>
 
       <v-list dense nav>
-        <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-        >
-          <v-list-item-content>
-            <v-list-item-title>
-              <router-link to="/students" class="text-decoration-none">
-                {{ item.title }}
-              </router-link>
-            </v-list-item-title>
-          </v-list-item-content>
+        <v-list-item>
+          <router-link to="/students" class="text-decoration-none">
+            <v-list-item-content>
+              <v-list-item-title>
+                Alunos
+              </v-list-item-title>
+            </v-list-item-content>
+          </router-link>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -40,13 +36,5 @@
 
 export default {
   name: 'App',
-
-  components: {},
-
-  data: () => ({
-    items: [
-      {title: 'Alunos'},
-    ],
-  }),
 };
 </script>

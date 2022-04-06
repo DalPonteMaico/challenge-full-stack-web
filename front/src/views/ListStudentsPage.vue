@@ -1,59 +1,60 @@
 <template>
-  <v-container>
+  <div>
     <v-app-bar>
       Consulta de alunos
     </v-app-bar>
 
 
-    <div>
-      <v-card
-          class="pa-2 d-flex justify-space-between"
-          flat
-          tile
+    <v-container>
+      <div>
+        <v-card
+            class="pa-2 d-flex justify-space-between"
+            flat
+            tile
+        >
+          <form class="flex-fill d-flex">
+            <v-text-field
+                v-model="search"
+                label="Digite sua busca"
+                solo
+            ></v-text-field>
+
+            <v-btn
+                large
+                group
+                tile>
+              Pesquisar
+            </v-btn>
+          </form>
+          <div class="pl-10 ">
+            <router-link
+                class="v-btn primary v-size--large"
+                to="/students/new"
+                large>
+              Cadastrar Aluno
+            </router-link>
+          </div>
+        </v-card>
+
+      </div>
+
+
+      <v-data-table
+          :headers="tableHaders"
+          :items="items"
+          :items-per-page="5"
+          class="elevation-1"
       >
-        <form class="flex-fill d-flex">
-          <v-text-field
-              v-model="search"
-              label="Digite sua busca"
-              solo
-          ></v-text-field>
+        <template v-slot:[`item.actions`]="{}">
+          <div>
+            [<a>editar</a>][<a>excluir</a>]
+          </div>
+        </template>
 
-          <v-btn
-              large
-              group
-              tile>
-            Pesquisar
-          </v-btn>
-        </form>
-        <div class="pl-10 ">
-          <router-link
-              class="v-btn primary v-size--large"
-              to="/students/new"
-              large>
-            Cadastrar Aluno
-          </router-link>
-        </div>
-      </v-card>
+      </v-data-table>
 
-    </div>
-
-
-    <v-data-table
-        :headers="tableHaders"
-        :items="items"
-        :items-per-page="5"
-        class="elevation-1"
-    >
-      <template v-slot:[`item.actions`]="{}">
-        <div>
-          [<a>editar</a>][<a>excluir</a>]
-        </div>
-      </template>
-
-    </v-data-table>
-
-
-  </v-container>
+    </v-container>
+  </div>
 </template>
 
 <script>
