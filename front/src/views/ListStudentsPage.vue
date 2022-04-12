@@ -57,14 +57,43 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
 
-            <v-btn
-                class="ma-1"
-                outlined
-                @click="deleteItem(item)"
-                color="red"
+            <v-dialog
+                v-model="showDialog"
+                width="500"
             >
-              <v-icon>mdi-trash-can</v-icon>
-            </v-btn>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    class="ma-1"
+                    outlined
+                    color="red"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                  <v-icon>mdi-trash-can</v-icon>
+                </v-btn>
+
+              </template>
+
+              <v-card class="pt-5">
+                <v-card-text>
+                  Tem certeza que deseja remover a matrícula <strong>{{item.registration}}</strong>
+                  <br>
+                  Aluno: <strong>{{item.name}}</strong>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-actions class="d-flex justify-end">
+                  <v-btn
+                      color="red"
+                      outlined
+                      @click="deleteItem(item)"
+                  >
+                    Excluir
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </template>
 
@@ -83,6 +112,7 @@ const {API_URL} = config
 export default {
   name: "StudentsPage",
   data: () => ({
+    showDialog: false,
     loading: true,
     search: '',
     tableHaders: [
