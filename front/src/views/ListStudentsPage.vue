@@ -42,12 +42,29 @@
       <v-data-table
           :headers="tableHaders"
           :items="items"
+          :search="search"
           :items-per-page="5"
           class="elevation-1"
+          :loading="loading"
       >
-        <template v-slot:[`item.actions`]="{}">
+        <template v-slot:[`item.actions`]="{item}">
           <div>
-            [<a>editar</a>][<a>excluir</a>]
+            <v-btn
+                class="ma-1"
+                outlined
+                :to="`/students/${item.id}/edit`"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+
+            <v-btn
+                class="ma-1"
+                outlined
+                @click="deleteItem(item)"
+                color="red"
+            >
+              <v-icon>mdi-trash-can</v-icon>
+            </v-btn>
           </div>
         </template>
 
@@ -58,9 +75,12 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "StudentsPage",
   data: () => ({
+    loading: true,
     search: '',
     tableHaders: [
       {text: 'Registro Acadêmico', value: 'registration'},
@@ -68,14 +88,7 @@ export default {
       {text: 'CPF', value: 'socialIdNumber'},
       {text: 'Ações', value: 'actions', sortable: false},
     ],
-    items: [
-      {
-        registration: '01209159',
-        name: 'Maico Dal Ponte',
-        socialIdNumber: '19100000000',
-        email: 'maico.dalponte@codengage.com',
-      }
-    ]
+    items: []
   }),
   methods: {
     editItem(item) {
@@ -83,9 +96,20 @@ export default {
     },
 
     deleteItem(item) {
-      console.log(item)
+      const {id} = item
+      console.log(id)
     },
-  }
+  },
+  mounted () {
+    axios
+        .get('http://localhost:3001/students')
+        .then(response => {
+          const {data: {students}} = response
+
+          this.loading = false
+          this.items = students
+        })
+  },
 }
 </script>
 
