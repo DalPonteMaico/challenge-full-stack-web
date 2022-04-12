@@ -48,6 +48,9 @@
 
 <script>
 import axios from "axios";
+import config from "../../config";
+
+const {API_URL} = config
 
 export default {
   name: 'CreateStudents',
@@ -71,7 +74,7 @@ export default {
       }
 
       axios
-          .post('http://localhost:3001/students', payload)
+          .post(`${API_URL}/students`, payload)
           .then(response => {
             console.log(response.data)
             if (response.status === 201)
