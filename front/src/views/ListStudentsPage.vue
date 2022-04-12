@@ -76,6 +76,9 @@
 
 <script>
 import axios from "axios";
+import config from "../../config";
+
+const {API_URL} = config
 
 export default {
   name: "StudentsPage",
@@ -91,24 +94,36 @@ export default {
     items: []
   }),
   methods: {
+    loadStudents() {
+      axios
+          .get(`${API_URL}/students`)
+          .then(response => {
+            const {data: {students}} = response
+
+            this.loading = false
+            this.items = students
+          })
+    },
     editItem(item) {
       console.log(item)
     },
 
     deleteItem(item) {
       const {id} = item
-      console.log(id)
+
+      axios
+          .delete(`${API_URL}/students/${id}`,)
+          .then(response => {
+            console.log(response.status, response.data)
+            if (response.status === 200)
+              this.loadStudents()
+            else
+              console.error('Error', response)
+          })
     },
   },
-  mounted () {
-    axios
-        .get('http://localhost:3001/students')
-        .then(response => {
-          const {data: {students}} = response
-
-          this.loading = false
-          this.items = students
-        })
+  mounted() {
+    this.loadStudents()
   },
 }
 </script>
