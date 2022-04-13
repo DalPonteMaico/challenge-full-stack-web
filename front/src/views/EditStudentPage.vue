@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar>
-      Cadastrar aluno
+      Editar aluno
     </v-app-bar>
 
     <v-container>
@@ -19,11 +19,13 @@
         <v-text-field
             v-model="registration"
             label="RA"
+            readonly
             required
         ></v-text-field>
         <v-text-field
             v-model="socialIdNumber"
             label="CPF"
+            readonly
             required
         ></v-text-field>
         <div class="d-flex justify-end">
@@ -53,19 +55,35 @@ import config from "../../config";
 const {API_URL} = config
 
 export default {
-  name: 'CreateStudentPage',
+  name: 'EditStudentPage',
   data: () => ({
+    id: '',
     name: '',
     email: '',
     registration: '',
     socialIdNumber: '',
   }),
-
   methods: {
+    loadStudent() {
+      const {id} = this.$route.params
+      console.log(`${API_URL}/students/${id}`)
+      axios
+          .get(`${API_URL}/students/${id}`)
+          .then(response => {
+            const {data: {student}} = response
+            console.log(student)
+            const {id, name, email, registration, socialidnumber} = student
+            this.id = id
+            this.name = name
+            this.email = email
+            this.registration = registration
+            this.socialIdNumber = socialidnumber
+          })
+    },
     submit() {
       const payload = {
         student: {
-
+          id: this.id,
           name: this.name,
           email: this.email,
           registration: this.registration,
@@ -74,10 +92,10 @@ export default {
       }
 
       axios
-          .post(`${API_URL}/students`, payload)
+          .put(`${API_URL}/students/${this.id}`, payload)
           .then(response => {
             console.log(response.data)
-            if (response.status === 201)
+            if (response.status === 200)
               this.$router.push('/students')
             else
               console.error('Error', response)
@@ -89,6 +107,9 @@ export default {
       this.registration = ''
       this.socialIdNumber = ''
     },
+  },
+  mounted() {
+    this.loadStudent()
   },
 }
 </script>

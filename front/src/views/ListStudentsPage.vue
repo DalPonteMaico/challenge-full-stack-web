@@ -76,9 +76,9 @@
 
               <v-card class="pt-5">
                 <v-card-text>
-                  Tem certeza que deseja remover a matrícula <strong>{{item.registration}}</strong>
+                  Tem certeza que deseja remover a matrícula <strong>{{ item.registration }}</strong>
                   <br>
-                  Aluno: <strong>{{item.name}}</strong>
+                  Aluno: <strong>{{ item.name }}</strong>
                 </v-card-text>
 
                 <v-divider></v-divider>
@@ -110,7 +110,7 @@ import config from "../../config";
 const {API_URL} = config
 
 export default {
-  name: "StudentsPage",
+  name: "ListStudentsPage",
   data: () => ({
     showDialog: false,
     loading: true,
@@ -135,7 +135,8 @@ export default {
           })
     },
     editItem(item) {
-      console.log(item)
+      const {id} = item
+      this.$router.go(`/students/${id}`)
     },
 
     deleteItem(item) {
@@ -145,11 +146,12 @@ export default {
           .delete(`${API_URL}/students/${id}`,)
           .then(response => {
             console.log(response.status, response.data)
-            if (response.status === 200)
+            if (response.status === 200) {
+              this.showDialog = false
               this.loadStudents()
-            else
+            } else
               console.error('Error', response)
-          })
+          }).catch(e => console.error('Não foi possível excluir', e))
     },
   },
   mounted() {
