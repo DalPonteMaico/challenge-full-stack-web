@@ -32,13 +32,17 @@ async function makeApi(config) {
     router.get('/students', (request, response, next) =>
       studentsController.listStudents(request, response))
 
-    router.get('/students/:id', studentsController.getStudent)
+    router.get('/students/:id', (request, response, next) =>
+      studentsController.getStudent(request, response))
 
-    router.post('/students', studentsController.createStudent)
+    router.post('/students', (request, response, next) =>
+      studentsController.createStudent(request, response))
 
-    router.put('/students/:id', studentsController.updateStudent)
+    router.put('/students/:id', (request, response, next) =>
+      studentsController.updateStudent(request, response))
 
-    router.delete('/students/:id', studentsController.deleteStudent)
+    router.delete('/students/:id', (request, response, next) =>
+      studentsController.deleteStudent(request, response))
 
     api.use('/', router)
     return api
