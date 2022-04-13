@@ -4,13 +4,14 @@
   "description": "Back-end API para desafio full stack GrupoA",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "pg-promise": "^10.11.1"
   },
   "devDependencies": {
     "cors": "^2.8.5"

@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  db:
+    container_name: challenge-db
+    image: postgres
+    environment:
+      PGDATA: /var/lib/postgresql/data/database_data/
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: challenge
+    ports:
+      - '5432:5432'
+    volumes:
+    - .:/var/lib/postgresql/data
+
+  api:
+    container_name: challenge-api
+    build:
+      .
+    depends_on:
+      - db
+    command: yarn start
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/api
+
