@@ -38,7 +38,7 @@ class StudentsController {
     const [current] = await this.studentsService.findById(id)
     const result = await this.studentsService.update({...current, name, email})
 
-    response.status(201).json({
+    response.status(200).json({
       result,
       student: current
     })
@@ -48,7 +48,7 @@ class StudentsController {
     const {id} = request.params
     const result = await this.studentsService.delete({id})
 
-    response.status(201).json({result})
+    response.status(200).json({result})
   }
 
 }
