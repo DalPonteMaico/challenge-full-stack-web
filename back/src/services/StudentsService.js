@@ -1,6 +1,10 @@
 class StudentsService{
-  constructor(databaseConnection) {
-    this.database = databaseConnection
+  constructor(database) {
+    this.database = database
+  }
+
+  async findAll() {
+    return this.database.query('select * from students')
   }
 }
 

@@ -13,16 +13,3 @@ services:
       - '5432:5432'
     volumes:
     - .:/var/lib/postgresql/data
-
-  api:
-    container_name: challenge-api
-    build:
-      .
-    depends_on:
-      - db
-    command: yarn start
-    ports:
-      - '3001:3001'
-    volumes:
-      - .:/usr/api
-

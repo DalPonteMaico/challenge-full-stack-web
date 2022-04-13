@@ -9,18 +9,23 @@ const mockStudent = {
 }
 
 class StudentsController {
-  constructor() {
+  constructor(studentsService) {
+    this.studentsService = studentsService
   }
 
-  listStudents(request, response, next) {
-    const students = [mockStudent]
+  async listStudents(request, response) {
+    console.log(this.studentsService)
+
+    const students = await this.studentsService.findAll()
+
+    console.log(students)
 
     response.status(200).json({
       students
     })
   }
 
-  getStudent(request, response, next) {
+  async getStudent(request, response) {
     const {id} = request.params
     console.log(id)
 
@@ -29,7 +34,7 @@ class StudentsController {
     })
   }
 
-  createStudent(request, response, next) {
+  async createStudent(request, response) {
     const {student} = request.body
 
     response.status(201).json({
@@ -41,7 +46,7 @@ class StudentsController {
     })
   }
 
-  updateStudent(request, response, next) {
+  async updateStudent(request, response) {
     const {id} = request.params
     console.log(id)
     const {student} = request.body
@@ -54,7 +59,7 @@ class StudentsController {
     })
   }
 
-  deleteStudent(request, response, next) {
+  async deleteStudent(request, response) {
     const {id} = request.params
     console.log(id)
 

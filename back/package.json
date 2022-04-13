@@ -4,7 +4,7 @@
   "description": "Back-end API para desafio full stack GrupoA",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "PORT=3001 node index.js"
   },
   "author": "",
   "license": "ISC",
